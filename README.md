@@ -37,22 +37,22 @@ For full details on the methodology and results, refer to the associated article
 |------|-----------------------------|---------------|
 | V01  | Original (Site 1)           | [View](https://www.washington.edu/accesscomputing/AU/before.html) |
 | V02  | Manual compliance (Site 1)  | [View](https://www.washington.edu/accesscomputing/AU/after.html) |
-| V03  | GPT-HTML (Site 1)           | [View](https://github.dev/gverafei/decision-based-method/output/gpt-site1/1-from_html.html) |
-| V04  | GPT-HTML+T (Site 1)         | [View](https://github.dev/gverafei/decision-based-method/output/gpt-site1/2-from_html_template.html) |
-| V05  | GPT-MD (Site 1)             | [View](https://github.dev/gverafei/decision-based-method/output/gpt-site1/3-from_md.html) |
-| V06  | GPT-MD+T (Site 1)           | [View](https://github.dev/gverafei/decision-based-method/output/gpt-site1/4-from_md_template.html) |
-| V07  | Gem-HTML (Site 1)           | [View](https://github.dev/gverafei/decision-based-method/output/gemini-site1/1-from_html.html) |
-| V08  | Gem-HTML+T (Site 1)         | [View](https://github.dev/gverafei/decision-based-method/output/gemini-site1/2-from_html_template.html) |
-| V09  | Gem-MD (Site 1)             | [View](https://github.dev/gverafei/decision-based-method/output/gemini-site1/3-from_md.html) |
-| V10  | Gem-MD+T (Site 1)           | [View](https://github.dev/gverafei/decision-based-method/output/gemini-site1/4-from_md_template.html) |
+| V03  | GPT-HTML (Site 1)           | [View](https://gverafei.github.io/decision-based-method/output/gpt-site1/1-from_html.html) |
+| V04  | GPT-HTML+T (Site 1)         | [View](https://gverafei.github.io/decision-based-method/output/gpt-site1/2-from_html_template.html) |
+| V05  | GPT-MD (Site 1)             | [View](https://gverafei.github.io/decision-based-method/output/gpt-site1/3-from_md.html) |
+| V06  | GPT-MD+T (Site 1)           | [View](https://gverafei.github.io/decision-based-method/output/gpt-site1/4-from_md_template.html) |
+| V07  | Gem-HTML (Site 1)           | [View](https://gverafei.github.io/decision-based-method/output/gemini-site1/1-from_html.html) |
+| V08  | Gem-HTML+T (Site 1)         | [View](https://gverafei.github.io/decision-based-method/output/gemini-site1/2-from_html_template.html) |
+| V09  | Gem-MD (Site 1)             | [View](https://gverafei.github.io/decision-based-method/output/gemini-site1/3-from_md.html) |
+| V10  | Gem-MD+T (Site 1)           | [View](https://gverafei.github.io/decision-based-method/output/gemini-site1/4-from_md_template.html) |
 |------|-----------------------------|---------------|
 | V11  | Original (Site 2)           | [View](https://openassessittoolkit.github.io/accessible_u/before_u.html) |
 | V12  | Manual compliance (Site 2)  | [View](https://openassessittoolkit.github.io/accessible_u/after_u.html) |
-| V13  | GPT-HTML (Site 2)           | [View](https://github.dev/gverafei/decision-based-method/output/gpt-site2/1-from_html.html) |
-| V14  | GPT-HTML+T (Site 2)         | [View](https://github.dev/gverafei/decision-based-method/output/gpt-site2/2-from_html_template.html) |
-| V15  | GPT-MD (Site 2)             | [View](https://github.dev/gverafei/decision-based-method/output/gpt-site2/3-from_md.html) |
-| V16  | GPT-MD+T (Site 2)           | [View](https://github.dev/gverafei/decision-based-method/output/gpt-site2/4-from_md_template.html) |
-| V17  | Gem-HTML (Site 2)           | [View](https://github.dev/gverafei/decision-based-method/output/gemini-site2/1-from_html.html) |
-| V18  | Gem-HTML+T (Site 2)         | [View](https://github.dev/gverafei/decision-based-method/output/gemini-site2/2-from_html_template.html) |
-| V19  | Gem-MD (Site 2)             | [View](https://github.dev/gverafei/decision-based-method/output/gemini-site2/3-from_md.html) |
-| V20  | Gem-MD+T (Site 2)           | [View](https://github.dev/gverafei/decision-based-method/output/gemini-site2/4-from_md_template.html) |
+| V13  | GPT-HTML (Site 2)           | [View](https://gverafei.github.io/decision-based-method/output/gpt-site2/1-from_html.html) |
+| V14  | GPT-HTML+T (Site 2)         | [View](https://gverafei.github.io/decision-based-method/output/gpt-site2/2-from_html_template.html) |
+| V15  | GPT-MD (Site 2)             | [View](https://gverafei.github.io/decision-based-method/output/gpt-site2/3-from_md.html) |
+| V16  | GPT-MD+T (Site 2)           | [View](https://gverafei.github.io/decision-based-method/output/gpt-site2/4-from_md_template.html) |
+| V17  | Gem-HTML (Site 2)           | [View](https://gverafei.github.io/decision-based-method/output/gemini-site2/1-from_html.html) |
+| V18  | Gem-HTML+T (Site 2)         | [View](https://gverafei.github.io/decision-based-method/output/gemini-site2/2-from_html_template.html) |
+| V19  | Gem-MD (Site 2)             | [View](https://gverafei.github.io/decision-based-method/output/gemini-site2/3-from_md.html) |
+| V20  | Gem-MD+T (Site 2)           | [View](https://gverafei.github.io/decision-based-method/output/gemini-site2/4-from_md_template.html) |
