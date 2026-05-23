@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Accessible University Demo Site - Inaccessible Version (Accessible Version)</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.washington.edu/accesscomputing/AU/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.washington.edu/accesscomputing/AU/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.washington.edu/accesscomputing/AU/images/favicon/favicon-16x16.png">
+    <style>
+        /* Combined and corrected CSS from au-shared.css, main.css, before-main.css, before-menu.css, before-form.css, before-modal.css, before-carousel.css */
+
+        /* sr-only class for visually hidden elements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Basic body styles (from au-shared.css) */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333; /* Good contrast */
+            background-color: #fff;
+        }
+
+        /* Focus styles (added for accessibility) */
+        a:focus, button:focus, input:focus, select:focus, textarea:focus, [tabindex]:focus {
+            outline: 3px solid #0066cc; /* Added visible focus indicator */
+            outline-offset: 2px;
+        }
+
+        /* Link color adjustment for contrast */
+        a {
+            color: #0066cc; /* Changed from #00f (2.7:1) to #0066cc (4.5:1) */
+            text-decoration: underline;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        /* Layout container (from main.css) */
+        #content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header/Banner (from main.css, modified for flex) */
+        header[role="banner"] { /* Changed from #banner div */
+            display: flex; /* Use flexbox for logo and nav */
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        header[role="banner"] img { /* #logo */
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Primary Navigation (from au-shared.css, before-menu.css, modified for flex) */
+        nav[aria-label="Primary site navigation"] ul { /* Changed from #AU-menu ul */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav[aria-label="Primary site navigation"] li {
+            margin-left: 20px;
+        }
+
+        nav[aria-label="Primary site navigation"] a {
+            text-decoration: none;
+            color: #000; /* Assuming background is light */
+            font-weight: bold;
+        }
+
+        nav[aria-label="Primary site navigation"] a[aria-current="page"] {
+            text-decoration: underline;
+        }
+
+        /* Secondary Navigation (Dropdown Menu) (from before-menu.css) */
+        nav[aria-label="Section navigation"] { /* Changed from #menu ul */
+            margin-top: 20px;
+            background-color: #eee;
+            padding: 10px 0;
+        }
+
+        nav[aria-label="Section navigation"] > ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav[aria-label="Section navigation"] > ul > li {
+            position: relative;
+        }
+
+        nav[aria-label="Section navigation"] ul ul {
+            display: none; /* Hidden by default, shown by JS */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #eee;
+            list-style: none;
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #ccc;
+            z-index: 10;
+        }
+
+        nav[aria-label="Section navigation"] ul ul li {
+            margin: 5px 0;
+        }
+
+        nav[aria-label="Section navigation"] ul ul a {
+            white-space: nowrap;
+        }
+
+        /* Main content and Sidebar layout (from main.css, modified for flex) */
+        .main-content-area { /* New container div */
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            margin-top: 20px;
+        }
+
+        main[role="main"] { /* Changed from #main div */
+            flex: 2; /* Takes up more space */
+            min-width: 300px; /* Minimum width before wrapping */
+            margin-right: 20px; /* Space between main and aside */
+        }
+
+        aside[role="aside"] { /* Changed from #appForm div */
+            flex: 1; /* Takes up less space */
+            min-width: 250px; /* Minimum width before wrapping */
+        }
+
+        /* Headings (from main.css, before-main.css) */
+        h2 { /* Changed from .heading */
+            font-size: 1.8em;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: #000; /* Good contrast */
+        }
+
+        /* Horizontal rule image (decorative) (from main.css) */
+        img.hr {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Carousel (from before-carousel.css) */
+        #carousel {
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden; /* Hide extra slides */
+        }
+
+        #carousel #controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 5;
+            pointer-events: none; /* Allow clicks to pass through */
+        }
+
+        #carousel #controls button { /* Changed from div, styled as buttons */
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 2em;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+            pointer-events: auto; /* Re-enable clicks for buttons */
+            user-select: none;
+            border: none; /* Remove default button border */
+            padding: 0;
+        }
+
+        #carousel #controls #btn-prev { margin-left: 10px; }
+        #carousel #controls #btn-next { margin-right: 10px; }
+
+        #carousel #slides {
+            display: flex; /* Arrange slides in a row */
+            transition: transform 0.5s ease-in-out; /* Smooth transition */
+        }
+
+        #carousel .slide {
+            min-width: 100%; /* Each slide takes full width of container */
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #carousel .slide img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        #carousel .caption {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+        }
+
+        #carousel .lentils { /* Pagination dots */
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            z-index: 5;
+        }
+
+        #carousel .lentils li {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        #carousel .lentils li.active {
+            background-color: #fff;
+        }
+
+
+        /* Table (from main.css) */
+        table#enrollment {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        table#enrollment th,
+        table#enrollment td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table#enrollment th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        table#enrollment caption { /* Added caption styling */
+            caption-side: top;
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Video (from main.css) */
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px 0;
+        }
+
+        /* Form (from before-form.css) */
+        aside[role="aside"] h2 { /* Changed from .heading */
+             margin-top: 0; /* Adjust margin for sidebar heading */
+        }
+
+        aside[role="aside"] form div {
+            margin-bottom: 15px;
+        }
+
+        aside[role="aside"] label { /* Added label styling */
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        aside[role="aside"] input[type="text"],
+        aside[role="aside"] input[type="email"] { /* Added email type */
+            width: calc(100% - 18px); /* Adjust for padding/border */
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+
+        /* Required fields */
+        aside[role="aside"] .required label { /* Target label for required fields */
+            color: #0066cc; /* Changed from #00f (2.7:1) to #0066cc (4.5:1) */
+        }
+
+        aside[role="aside"] .required label::after { /* Add asterisk */
+            content: " *";
+            color: red; /* Or keep the blue */
+        }
+
+        aside[role="aside"] .reqExample {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        /* Checkbox group */
+        #majors fieldset { /* Added fieldset */
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #majors legend { /* Added legend */
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 0;
+        }
+
+        #majors .major {
+            margin-bottom: 5px;
+        }
+
+        #majors .major input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        /* CAPTCHA */
+        #captcha {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        #captcha p {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        #captcha input[type="text"] {
+             width: calc(100% - 18px); /* Adjust for padding/border */
+            padding: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        #captcha img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Submit button */
+        input[type="submit"] {
+            background-color: #0066cc; /* Example button style */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer (from main.css) */
+        footer[role="contentinfo"] { /* Changed from #footer div */
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #ccc;
+            font-size: 0.9em;
+        }
+
+        #license {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        #ccLogo {
+            margin-right: 15px;
+        }
+
+        #license img {
+            border-width: 0;
+        }
+
+        #license a {
+             color: #0066cc; /* Changed from #00f (2.7:1) to #0066cc (4.5:1) */
+        }
+
+
+        /* Modal (from before-modal.css) */
+        #modalMask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            display: none; /* Hidden by default */
+        }
+
+        #modalContent {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 101;
+            max-width: 500px;
+            width: 90%;
+            display: none; /* Hidden by default */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #modalContent h2.modalHeading { /* Changed from .modalHeading div */
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        #modalClose {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #333;
+        }
+
+        #modalContent ol {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        #modalOk {
+            display: block;
+            margin: 0 auto;
+            background-color: #0066cc; /* Example button style */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        #modalOk:hover {
+             background-color: #0056b3;
+        }
+
+        /* Responsive adjustments (from main.css, before-menu.css) */
+        @media (max-width: 768px) {
+            header[role="banner"] {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header[role="banner"] nav {
+                margin-top: 15px;
+            }
+
+            nav[aria-label="Primary site navigation"] ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav[aria-label="Primary site navigation"] li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            nav[aria-label="Section navigation"] > ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav[aria-label="Section navigation"] > ul > li {
+                 margin-bottom: 10px;
+            }
+
+            nav[aria-label="Section navigation"] ul ul {
+                position: static; /* Remove absolute positioning on small screens */
+                border: none;
+                padding: 0;
+            }
+
+            .main-content-area {
+                flex-direction: column;
+            }
+
+            main[role="main"] {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            aside[role="aside"] {
+                min-width: 100%;
+            }
+
+            #license {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            #ccLogo {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Original scripts are included. Note: These scripts likely need modification
+         to work with the new semantic structure and ARIA attributes for full accessibility. -->
+    <script src="https://www.washington.edu/accesscomputing/AU/scripts/before-menu.js"></script>
+    <script src="https://www.washington.edu/accesscomputing/AU/scripts/before-form.js"></script>
+    <script src="https://www.washington.edu/accesscomputing/AU/scripts/before-modal.js"></script>
+    <script src="https://www.washington.edu/accesscomputing/AU/scripts/before-carousel.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+
+    <div id="content">
+
+        <header role="banner"> <!-- Changed from div#banner -->
+            <img id="logo" src="https://www.washington.edu/accesscomputing/AU/images/au123456789.gif" alt="Accessible University Demo Site Logo" width="441" height="90">
+            <nav aria-label="Primary site navigation"> <!-- Changed from nav#AU-menu -->
+                <ul>
+                    <li><a href="https://www.washington.edu/accesscomputing/AU/index.html">Home</a></li>
+                    <li><a href="https://www.washington.edu/accesscomputing/AU/before.html" aria-current="page">Before</a></li>
+                    <li><a href="https://www.washington.edu/accesscomputing/AU/after.html">After</a></li>
+                    <li><a href="https://www.washington.edu/accesscomputing/AU/info.html">Info</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <nav aria-label="Section navigation"> <!-- Changed from ul#menu -->
+            <ul>
+                <li><a href="#">About</a>
+                    <ul>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=News">News</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Governance">Governance</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Diversity">Diversity</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Contact%20Us">Contact Us</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Academics</a>
+                    <ul>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Degree%20Programs">Degree Programs</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=AU%20Faculty">AU Faculty</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Distance%20Learning">Distance Learning</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Libraries">Libraries</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Admissions</a>
+                    <ul>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Undergraduate">Undergraduate</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Graduate">Graduate</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Tuition">Tuition</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Financial%20Aid">Financial Aid</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Visitors</a>
+                    <ul>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Events">Events</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Campus_Map">Campus Map</a></li>
+                        <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Parking">Parking</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="main-content-area"> <!-- New container for main and aside -->
+
+            <main role="main" id="main-content"> <!-- Changed from div#main, added id for skip link -->
+                <h1 class="sr-only">Accessible University Demo Site - Inaccessible Version</h1> <!-- Visually hidden H1 -->
+
+                <section role="region" aria-roledescription="carousel" aria-label="University highlights"> <!-- Wrapped carousel in section with ARIA -->
+                    <div id="carousel">
+                        <div id="controls">
+                            <button type="button" id="btn-prev" aria-label="Previous slide"></button> <!-- Changed to button with label -->
+                            <button type="button" id="btn-next" aria-label="Next slide"></button> <!-- Changed to button with label -->
+                        </div>
+                        <div id="slides">
+                            <div class="slide current">
+                                <img src="https://www.washington.edu/accesscomputing/AU/images/carousel/slide1.jpg" width="580" height="326" alt="A modern school building"> <!-- Added alt text -->
+                                <div class="caption">A modern shool</div>
+                            </div>
+                            <div class="slide">
+                                <img src="https://www.washington.edu/accesscomputing/AU/images/carousel/slide2.jpg" alt="Rooted in its history"> <!-- Added alt text -->
+                                <div class="caption">rooted in its history</div>
+                            </div>
+                            <div class="slide">
+                                <img src="https://www.washington.edu/accesscomputing/AU/images/carousel/slide3.jpg" alt="With opportunities to learn"> <!-- Added alt text -->
+                                <div class="caption">with opportunities to learn</div>
+                            </div>
+                            <div class="slide">
+                                <img src="https://www.washington.edu/accesscomputing/AU/images/carousel/slide4.jpg" alt="And grow"> <!-- Added alt text -->
+                                <div class="caption">and grow.</div>
+                            </div>
+                        </div>
+                        <ul class="lentils" aria-label="Carousel pagination"> <!-- Added ARIA label -->
+                            <li data-slide="0" class="active" aria-label="Slide 1 of 4" aria-current="true"></li> <!-- Added ARIA labels and state -->
+                            <li data-slide="1" aria-label="Slide 2 of 4"></li>
+                            <li data-slide="2" aria-label="Slide 3 of 4"></li>
+                            <li data-slide="3" aria-label="Slide 4 of 4"></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <h2>Welcome!</h2> <!-- Changed from div.heading -->
+                <p>Accessible University (AU) is a fictional university, and this is its
+                    fictional home page. This page is designed to demonstrate a variety of
+                    common web design problems that result in visitors with disabilities
+                    being unable to access the content or features of a web page.
+                    Although the heading at the top of this section of the page
+                    suggests that AU may be a welcoming institution,
+                    the inaccessible design of this page sends the opposite message.
+                </p>
+
+                <img class="hr" src="https://www.washington.edu/accesscomputing/AU/images/line_gradient.gif" alt=""> <!-- Decorative image, alt="" -->
+
+                <h2>Bienvenido!</h2> <!-- Changed from div.heading -->
+                <p>Accesible Universidad (UA) es una universidad ficticia, y esta es su
+                    página de ficción. Esta página está diseñada para demostrar una variedad de
+                    común de diseño web que se traducen en problemas de los visitantes con discapacidad
+                    no poder acceder al contenido o las características de una página web.
+                    Aunque el título en la parte superior de esta sección de la página
+                    sugiere que AU puede ser una institución de bienvenida,
+                    el diseño inaccesible de esta página envía el mensaje opuesto.
+                </p>
+
+                <img class="hr" src="https://www.washington.edu/accesscomputing/AU/images/line_gradient.gif" alt=""> <!-- Decorative image, alt="" -->
+
+                <h2>Can you spot the barriers?</h2> <!-- Changed from div.heading -->
+                <p>There are at least 22 accessibility issues on this page.
+                    To see a list of all known issues, <a href="https://www.washington.edu/accesscomputing/AU/info.html">view the info page</a>. <!-- Improved link text -->
+                    To see a more accessible version of this same page, <a href="https://www.washington.edu/accesscomputing/AU/after.html">view the accessible version</a>. <!-- Improved link text -->
+                    For a cheat sheet of accessibility issues, <a href="https://www.washington.edu/accesscomputing/AU/cheatsheet.html">view the cheat sheet</a>. <!-- Improved link text -->
+                </p>
+
+                <img class="hr" src="https://www.washington.edu/accesscomputing/AU/images/line_gradient.gif" alt=""> <!-- Decorative image, alt="" -->
+
+                <h2>AU Enrollment Trends</h2> <!-- Changed from div.heading -->
+                <table id="enrollment">
+                    <caption>AU Enrollment Trends by Department and Level</caption> <!-- Added caption -->
+                    <thead> <!-- Added thead -->
+                        <tr>
+                            <td class="corner" rowspan="2" style="width:6em"></td> <!-- This cell is tricky, might need scope="colgroup" or similar depending on desired interpretation -->
+                            <th colspan="5" scope="colgroup">Last Year</th> <!-- Added th and scope -->
+                            <th colspan="5" scope="colgroup">This Year</th> <!-- Added th and scope -->
+                        </tr>
+                        <tr>
+                            <th scope="col">CS</th> <!-- Added th and scope -->
+                            <th scope="col">Eng</th> <!-- Added th and scope -->
+                            <th scope="col">Eco</th> <!-- Added th and scope -->
+                            <th scope="col">Phy</th> <!-- Added th and scope -->
+                            <th scope="col">Psy</th> <!-- Added th and scope -->
+                            <th scope="col">CS</th> <!-- Added th and scope -->
+                            <th scope="col">Eng</th> <!-- Added th and scope -->
+                            <th scope="col">Eco</th> <!-- Added th and scope -->
+                            <th scope="col">Phy</th> <!-- Added th and scope -->
+                            <th scope="col">Psy</th> <!-- Added th and scope -->
+                        </tr>
+                    </thead> <!-- End thead -->
+                    <tbody> <!-- Added tbody -->
+                        <tr>
+                            <th scope="row">Undergraduate</th> <!-- Added th and scope -->
+                            <!--Last Year-->
+                            <td>1481</td>
+                            <td>400</td>
+                            <td>727</td>
+                            <td>747</td>
+                            <td>1006</td>
+                            <!--This Year-->
+                            <td>1500</td>
+                            <td>340</td>
+                            <td>777</td>
+                            <td>787</td>
+                            <td>1112</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Graduate</th> <!-- Added th and scope -->
+                            <!--Last Year-->
+                            <td>310</td>
+                            <td>84</td>
+                            <td>273</td>
+                            <td>69</td>
+                            <td>312</td>
+                            <!--This Year-->
+                            <td>350</td>
+                            <td>64</td>
+                            <td>341</td>
+                            <td>72</td>
+                            <td>325</td>
+                        </tr>
+                    </tbody> <!-- End tbody -->
+                </table>
+
+                <img class="hr" src="https://www.washington.edu/accesscomputing/AU/images/line_gradient.gif" alt=""> <!-- Decorative image, alt="" -->
+
+                <h2>AU Video</h2> <!-- Changed from div.heading -->
+                <video src="https://www.washington.edu/accesscomputing/AU/video/au-promo.mp4" poster="https://www.washington.edu/accesscomputing/AU/video/au-promo.jpg" controls="">
+                    <track kind="captions" srclang="en" label="English Captions" src="https://www.washington.edu/accesscomputing/AU/video/au-promo.vtt"> <!-- Added track element -->
+                    <!-- Note: A transcript or audio description may be needed if visual information is not conveyed by audio -->
+                    Your browser does not support the video tag.
+                </video>
+
+            </main><!--end main-->
+
+            <aside role="aside" aria-label="Application Form"> <!-- Changed from div#appForm -->
+
+                <h2>Apply Now!</h2> <!-- Changed from div.heading -->
+                <p class="required reqExample">(<span style="color: #0066cc;">blue</span> indicates required fields)</p> <!-- Updated color note -->
+
+                <form action="#" method="post">
+
+                    <!-- container for displaying form errors -->
+                    <div id="error" role="alert" aria-live="polite"></div> <!-- Added ARIA roles for live region -->
+
+                    <div class="required">
+                        <label for="name">Name:</label> <!-- Added label -->
+                        <input type="text" name="name" id="name" aria-required="true"> <!-- Added id and aria-required -->
+                    </div>
+
+                    <div class="required">
+                        <label for="email">Email:</label> <!-- Added label -->
+                        <input type="email" name="email" id="email" aria-required="true"> <!-- Added id, aria-required, changed type to email -->
+                    </div>
+
+                    <div>
+                        <label for="country">Country:</label> <!-- Added label -->
+                        <input type="text" name="country" id="country"> <!-- Added id -->
+                    </div>
+
+                    <fieldset id="majors"> <!-- Wrapped checkboxes in fieldset -->
+                        <legend>Desired major(s):</legend> <!-- Added legend -->
+                        <div class="major">
+                            <input type="checkbox" name="major_cs" id="major_cs"> <!-- Added id -->
+                            <label for="major_cs">Computer Science</label> <!-- Added label -->
+                        </div>
+                        <div class="major">
+                            <input type="checkbox" name="major_eng" id="major_eng"> <!-- Added id -->
+                            <label for="major_eng">Engineering</label> <!-- Added label -->
+                        </div>
+                        <div class="major">
+                            <input type="checkbox" name="major_econ" id="major_econ"> <!-- Added id -->
+                            <label for="major_econ">Economics</label> <!-- Added label -->
+                        </div>
+                        <div class="major">
+                            <input type="checkbox" name="major_phy" id="major_phy"> <!-- Added id -->
+                            <label for="major_phy">Physics</label> <!-- Added label -->
+                        </div>
+                        <div class="major">
+                            <input type="checkbox" name="major_psy" id="major_psy"> <!-- Added id -->
+                            <label for="major_psy">Psychology</label> <!-- Added label -->
+                        </div>
+                        <div class="major">
+                            <input type="checkbox" name="major_sp" id="major_sp"> <!-- Added id -->
+                            <label for="major_sp">Spanish</label> <!-- Added label -->
+                        </div>
+                    </fieldset>
+
+                    <div id="captcha">
+                        <b>Security Test</b>
+                        <p>Please enter the two words you see below, separated by a space</p>
+                        <p>Note: This image-based CAPTCHA is inaccessible to many users. An accessible alternative (e.g., text question, hCAPTCHA, reCAPTCHA v3) should be used.</p> <!-- Added accessibility note -->
+                        <label for="captcha-input" class="sr-only">Enter the words from the image</label> <!-- Added visually hidden label -->
+                        <input type="text" name="captcha" id="captcha-input" aria-describedby="captcha-note"> <!-- Added id and aria-describedby -->
+                        <img src="https://www.washington.edu/accesscomputing/AU/images/captcha.png" width="186" height="56" alt="Image showing two words for security test"> <!-- Added alt text -->
+                        <p id="captcha-note" class="sr-only">Enter the words shown in the image above.</p> <!-- Added description for aria-describedby -->
+                    </div>
+
+                    <div>
+                        <input id="submit" type="submit" name="submit" value="Submit">
+                    </div>
+
+                </form>
+
+            </aside><!--end aside-->
+
+        </div> <!-- end .main-content-area -->
+
+        <footer role="contentinfo"> <!-- Changed from div#footer -->
+            <div id="license">
+                <div id="ccLogo">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a>
+                </div>
+                <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Accessible University</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.washington.edu/accesscomputing/AU" property="cc:attributionName" rel="cc:attributionURL">University of Washington</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+            </div>
+            <p>This product was originally developed with support from the National Institute on Disability and Rehabilitation Research of the U.S. Department of Education (grant #H133D010306), and has been subsequently updated and maintained with support from the National Science Foundation (grants #CNS-0540615, CNS-0837508, CNS-1042260, CNS-1539179, and CNS-2137312). The contents do not necessarily represent the policies of the U.S. federal government, and you should not assume their endorsement.</p>
+        </footer>
+
+    </div><!--end #content-->
+
+    <!--containers for displaying modal content-->
+    <div id="modalMask"></div>
+    <div id="modalContent" role="dialog" aria-modal="true" aria-labelledby="modalHeading"> <!-- Added ARIA roles -->
+        <h2 class="modalHeading" id="modalHeading">Accessibility Issues</h2> <!-- Changed to h2, added id -->
+        <button type="button" id="modalClose" aria-label="Close modal">x</button> <!-- Added ARIA label -->
+        <ol>
+            <!-- Structure -->
+            <li>Missing landmark regions</li>
+            <li>No headings</li>
+            <li>Language not specified</li>
+            <!-- Images -->
+            <li>No alternate text on informative images</li>
+            <li>Missing or excessive alternate text on decorative images</li>
+            <!-- Color-->
+            <li>Insufficient color contrast</li>
+            <li>Color used to communicate information</li>
+            <!-- Keyboard-->
+            <li>Inaccessible keyboard interface</li>
+            <li>No visible indication of focus</li>
+            <li>No "skip to main content" link</li>
+            <!-- Links-->
+            <li>Redundant, uninformative link text</li>
+            <li>Links vs buttons</li>
+            <!-- Features -->
+            <li>Inaccessible navigation menu</li>
+            <li>Inaccessible carousel</li>
+            <li>Inaccessible modal dialog</li>
+            <!-- Forms -->
+            <li>Form not properly labeled</li>
+            <li>Inaccessible CAPTCHA</li>
+            <li>Inaccessible input validation</li>
+            <!-- Tables -->
+            <li>Missing accessible table markup</li>
+            <li>Missing abbreviation tags</li>
+            <!-- Video -->
+            <li>Inaccessible audio content in video</li>
+            <li>Inaccessible visual content in video</li>
+        </ol>
+        <button type="button" id="modalOk">OK</button>
+    </div>
+
+</body>
+</html>

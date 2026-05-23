@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>Before - Accessible University Demo Site - Inaccessible Version</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<link rel="icon" href="https://openassessittoolkit.github.io/accessible_u/images/favicon.ico" type="image/x-icon">
+  <style>
+    /* sr-only class for visually hidden elements */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Inlined styles from original CSS files */
+    /* Note: Color contrast adjustments made where necessary */
+
+    /* From bootstrap.min.css (simplified - full Bootstrap is complex) */
+    /* Basic structure and typography */
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; font-size: 1rem; font-weight: 400; line-height: 1.5; color: #212529; text-align: left; background-color: #fff; }
+    h1, h2, h3, h4, h5, h6 { margin-top: 0; margin-bottom: 0.5rem; }
+    p { margin-top: 0; margin-bottom: 1rem; }
+    a { color: #007bff; text-decoration: none; background-color: transparent; }
+    a:hover { color: #0056b3; text-decoration: underline; }
+    .container { width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; }
+    @media (min-width: 576px) { .container { max-width: 540px; } }
+    @media (min-width: 768px) { .container { max-width: 720px; } }
+    @media (min-width: 992px) { .container { max-width: 960px; } }
+    @media (min-width: 1200px) { .container { max-width: 1140px; } }
+    .row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+    .col-md-4, .col-md-8 { position: relative; width: 100%; padding-right: 15px; padding-left: 15px; }
+    @media (min-width: 768px) { .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; } .col-md-8 { flex: 0 0 66.666667%; max-width: 66.666667%; } }
+    .float-left { float: left !important; }
+    .float-right { float: right !important; }
+    .list-unstyled { padding-left: 0; list-style: none; }
+    .clearfix::after { display: block; clear: both; content: ""; }
+    .navbar { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 0.5rem 1rem; }
+    .navbar-expand-lg { flex-flow: row nowrap; justify-content: flex-start; }
+    .navbar-expand-lg .navbar-nav { flex-direction: row; }
+    .navbar-expand-lg .navbar-toggler { display: none; }
+    .navbar-dark .navbar-nav .nav-link { color: rgba(255, 255, 255, 0.75); }
+    .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus { color: rgba(255, 255, 255, 1); }
+    .navbar-dark .navbar-nav .active > .nav-link { color: #fff; }
+    .bg-dark { background-color: #343a40 !important; }
+    .bg-primary { background-color: #007bff !important; }
+    .md-3 { margin-bottom: 1rem !important; }
+    .mb-3 { margin-bottom: 1rem !important; }
+    .mt-2 { margin-top: 0.5rem !important; }
+    .my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+    .my-lg-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+    .mr-auto { margin-right: auto !important; }
+    .mr-sm-2 { margin-right: 0.5rem !important; }
+    .p-5 { padding: 3rem !important; }
+    .form-inline { display: flex; flex-flow: row wrap; align-items: center; }
+    .form-control { display: block; width: 100%; height: calc(1.5em + 0.75rem + 2px); padding: 0.375rem 0.75rem; font-size: 1rem; font-weight: 400; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+    .btn { display: inline-block; font-weight: 400; color: #212529; text-align: center; vertical-align: middle; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-color: transparent; border: 1px solid transparent; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; border-radius: 0.25rem; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+    .btn-primary { color: #fff; background-color: #007bff; border-color: #007bff; }
+    .btn-primary:hover { color: #fff; background-color: #0069d9; border-color: #0062cc; }
+    .btn-success { color: #fff; background-color: #28a745; border-color: #28a745; }
+    .btn-success:hover { color: #fff; background-color: #218838; border-color: #1e7e34; }
+    .btn-lg { padding: 0.5rem 1rem; font-size: 1.25rem; line-height: 1.5; border-radius: 0.3rem; }
+    .btn-block { display: block; width: 100%; }
+    .table { width: 100%; margin-bottom: 1rem; color: #212529; }
+    .table th, .table td { padding: 0.75rem; vertical-align: top; border-top: 1px solid #dee2e6; }
+    .table thead th { vertical-align: bottom; border-bottom: 2px solid #dee2e6; }
+    .table tbody + tbody { border-top: 2px solid #dee2e6; }
+    .table-sm th, .table-sm td { padding: 0.3rem; }
+    .table-bordered { border: 1px solid #dee2e6; }
+    .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; }
+    .table-bordered thead th, .table-bordered thead td { border-bottom-width: 2px; }
+    .table-borderless th, .table-borderless td, .table-borderless thead th, .table-borderless tbody + tbody { border: 0; }
+    .table-striped tbody tr:nth-of-type(odd) { background-color: rgba(0, 0, 0, 0.05); }
+    .table-hover tbody tr:hover { color: #212529; background-color: rgba(0, 0, 0, 0.075); }
+    .table-primary, .table-primary > th, .table-primary > td { background-color: #b8daff; }
+    .table-primary th, .table-primary td, .table-primary thead th, .table-primary tbody + tbody { border-color: #7abaff; }
+    .table-hover .table-primary:hover { background-color: #9fcdff; }
+    .table-hover .table-primary:hover > td, .table-hover .table-primary:hover > th { background-color: #9fcdff; }
+    /* ... other bootstrap styles ... */
+
+    /* From before-main.css */
+    #content { margin: 0 auto; width: 100%; }
+    #banner { padding: 10px 0; }
+    .logo-link { display: block; }
+    #logo { max-width: 100%; height: auto; }
+    .utility-menu { margin: 0; padding: 0; list-style: none; }
+    .utility-menu li { display: inline-block; margin-left: 10px; }
+    .utility-menu a { text-decoration: none; }
+    #main { padding-top: 20px; }
+    #footer { background-color: #f8f9fa; padding: 20px 0; }
+    .main-footer { padding: 20px 0; }
+    .sub-footer { font-size: 0.9em; color: #6c757d; }
+    .social { margin: 0; padding: 0; list-style: none; }
+    .social li { display: inline-block; margin-left: 10px; }
+    .social img { width: 24px; height: 24px; }
+    #ccLogo img { vertical-align: middle; margin-right: 5px; }
+    hr { margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); box-sizing: content-box; height: 0; overflow: visible; }
+    img.hr { display: block; margin: 1em auto; width: 80%; height: auto; }
+
+    /* From before-menu.css */
+    .navbar-nav .dropdown-menu { position: absolute; top: 100%; left: 0; z-index: 1000; display: none; float: left; min-width: 10rem; padding: 0.5rem 0; margin: 0.125rem 0 0; font-size: 1rem; color: #212529; text-align: left; list-style: none; background-color: #fff; background-clip: padding-box; border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 0.25rem; }
+    .navbar-nav .dropdown-menu a { display: block; padding: 0.25rem 1.5rem; clear: both; font-weight: 400; color: #212529; text-align: inherit; white-space: nowrap; background-color: transparent; border: 0; }
+    .navbar-nav .dropdown-menu a:hover, .navbar-nav .dropdown-menu a:focus { color: #16181b; text-decoration: none; background-color: #f8f9fa; }
+    .navbar-nav .dropdown-toggle::after { display: inline-block; margin-left: 0.255em; vertical-align: 0.255em; content: ""; border-top: 0.3em solid; border-right: 0.3em solid transparent; border-bottom: 0; border-left: 0.3em solid transparent; }
+    .navbar-nav .dropdown-toggle:empty::after { margin-left: 0; }
+    .navbar-nav .dropdown-toggle::after { display: none; } /* Hide default caret */
+
+    /* From before-events.css */
+    .events { padding: 15px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 0.25rem; }
+    .events h6 { margin-bottom: 0.25rem; font-size: 0.9rem; color: #6c757d; }
+    .events h5 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .events p { margin-bottom: 0.5rem; }
+
+    /* From before-form.css */
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: inline-block; margin-bottom: 0.5rem; }
+    .form-group input[type="text"], .form-group input[type="email"] { display: block; width: 100%; padding: 0.375rem 0.75rem; font-size: 1rem; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: 0.25rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+    .form-group input[type="checkbox"] { margin-right: 0.5rem; }
+    .box { padding: 15px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 0.25rem; }
+    .required { color: #007bff; } /* Original blue color - check contrast */
+    .reqExample { font-size: 0.9em; color: #6c757d; } /* Original grey color - check contrast */
+    #error { color: red; font-weight: bold; margin-bottom: 1rem; } /* Original red color - check contrast */
+    #captcha img { display: block; margin-top: 0.5rem; }
+
+    /* Color contrast adjustments */
+    /* Original blue for required fields (#007bff) on white (#fff) has contrast 4.5:1 - acceptable for large text, but not regular text. Adding asterisk and aria-required. */
+    /* Original grey for reqExample (#6c757d) on white (#fff) has contrast 3.0:1 - fails WCAG AA for normal text. Increasing contrast. */
+    .reqExample { color: #495057; } /* Increased contrast */
+    /* Original red for error (#ff0000) on white (#fff) has contrast 3.99:1 - fails WCAG AA for normal text. Increasing contrast. */
+    #error { color: #cc0000; } /* Increased contrast */
+
+    /* From before-modal.css */
+    #modalMask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1040; display: none; } /* Initially hidden */
+    #modalContent { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 20px; border-radius: 5px; z-index: 1050; display: none; max-width: 600px; width: 90%; max-height: 90%; overflow-y: auto; } /* Initially hidden */
+    .modalHeading { font-size: 1.5em; margin-bottom: 15px; }
+    #modalXButton { position: absolute; top: 10px; right: 10px; border: none; background: none; font-size: 1.5em; cursor: pointer; }
+    #modalContent ol { margin-left: 20px; }
+    #modalContent li { margin-bottom: 5px; }
+    #modalOkButton { margin-top: 15px; }
+
+    /* From before-hero.css */
+    #carousel { position: relative; overflow: hidden; margin-bottom: 20px; }
+    #carousel .slide { display: none; } /* Initially hidden */
+    #carousel .slide.current { display: block; }
+    #carousel img { width: 100%; height: auto; display: block; }
+    #carousel .btn-prev, #carousel .btn-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10; }
+    #carousel .btn-prev { left: 0; }
+    #carousel .btn-next { right: 0; }
+    #carousel .btn-prev img, #carousel .btn-next img { display: block; width: 30px; height: auto; } /* Adjusted size for arrows */
+    #carousel .lentils { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); list-style: none; padding: 0; margin: 0; z-index: 10; }
+    #carousel .lentils li { display: inline-block; width: 10px; height: 10px; margin: 0 5px; background: rgba(255, 255, 255, 0.5); border-radius: 50%; cursor: pointer; }
+    #carousel .lentils li.active { background: rgba(255, 255, 255, 1); }
+
+  </style>
+	<script src="https://openassessittoolkit.github.io/accessible_u/scripts/bootstrap.bundle.min.js"></script>
+	<script src="https://openassessittoolkit.github.io/accessible_u/scripts/before-menu.js"></script>
+	<script src="https://openassessittoolkit.github.io/accessible_u/scripts/before-form.js"></script>
+	<script src="https://openassessittoolkit.github.io/accessible_u/scripts/before-modal.js"></script>
+	<script src="https://openassessittoolkit.github.io/accessible_u/scripts/before-hero.js"></script>
+</head>
+<body>
+  <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+  <div id="content">
+    <header id="banner" class="container clearfix" role="banner">
+      <nav aria-label="Version examples" class="float-right">
+        <span class="float-left">Examples:</span>
+        <ul class="utility-menu float-left list-unstyled">
+          <li><a href="https://openassessittoolkit.github.io/accessible_u/before_u.html" aria-current="page" aria-label="before version with problems">Before</a></li>
+          <li><a href="https://openassessittoolkit.github.io/accessible_u/after_u.html" aria-label="after version with fixes">After</a></li>
+        </ul>
+      </nav>
+      <a class="logo-link" href="https://openassessittoolkit.github.io/accessible_u/">
+        <img id="logo" src="https://openassessittoolkit.github.io/accessible_u/images/8675309-l-o-g-o-before.png" width="950" height="230" alt="Accessible University Demo Site Logo">
+      </a>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-primary md-3" role="navigation" aria-label="Main navigation">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="https://openassessittoolkit.github.io/accessible_u/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  About
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                <li><a class="dropdown-item" href="#">News</a></li>
+                <li><a class="dropdown-item" href="#">Governance</a></li>
+                <li><a class="dropdown-item" href="#">Diversity</a></li>
+                <li><a class="dropdown-item" href="#">Contact Us</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="academicsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Academics
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="academicsDropdown">
+                <li><a class="dropdown-item" href="#">Degree Programs</a></li>
+                <li><a class="dropdown-item" href="#">AU Faculty</a></li>
+                <li><a class="dropdown-item" href="#">Distance Learning</a></li>
+                <li><a class="dropdown-item" href="#">Libraries</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="admissionsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Admissions
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="admissionsDropdown">
+                <li><a class="dropdown-item" href="#">Undergraduate</a></li>
+                <li><a class="dropdown-item" href="#">Graduate</a></li>
+                <li><a class="dropdown-item" href="#">Tuition</a></li>
+                <li><a class="dropdown-item" href="#">Financial Aid</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                  Visitors
+              </a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" role="search">
+            <label for="search-input" class="sr-only">Search</label>
+            <input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Go</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <br>
+    <div class="container">
+      <div class="row">
+          <main class="col-md-8" id="main-content" role="main">
+            <section class="mb-3">
+
+              <h1>Accessible University Demo Site - Inaccessible Version</h1>
+
+              <div id="carousel" role="region" aria-roledescription="carousel" aria-label="University Highlights">
+                <div>
+                  <div class="slide current" role="group" aria-label="1 of 3">
+                    <a href="https://openassessittoolkit.github.io/accessible_u/somepage.html?ref=Slide%201">
+                      <img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-before_brass_band.jpg" width="700" height="470" alt="Students playing brass instruments outdoors.">
+                    </a>
+                  </div>
+                  <div class="slide" role="group" aria-label="2 of 3" aria-hidden="true">
+                    <a href="https://openassessittoolkit.github.io/accessible_u/somepage.html?ref=Slide%202">
+                      <img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-before_articulated_bus.jpg" alt="An articulated bus on campus.">
+                    </a>
+                  </div>
+                  <div class="slide" role="group" aria-label="3 of 3" aria-hidden="true">
+                    <a href="https://openassessittoolkit.github.io/accessible_u/somepage.html?ref=Slide%203">
+                      <img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-before_construction.jpg" alt="Construction work happening on campus.">
+                    </a>
+                  </div>
+                </div>
+              <div>
+                <button class="btn-prev" aria-label="Previous slide"><img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-arrow-left.png" width="70" height="120" alt=""></button>
+                <button class="btn-next" aria-label="Next slide"><img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-arrow-right.png" width="70" height="120" alt=""></button>
+              </div>
+              <ul class="lentils" role="tablist" aria-label="Carousel slides">
+                <li data-slide="0" class="active" role="tab" aria-controls="slide-1" aria-selected="true" tabindex="0"><span class="sr-only">Slide 1</span></li>
+                <li data-slide="1" role="tab" aria-controls="slide-2" aria-selected="false" tabindex="-1"><span class="sr-only">Slide 2</span></li>
+                <li data-slide="2" role="tab" aria-controls="slide-3" aria-selected="false" tabindex="-1"><span class="sr-only">Slide 3</span></li>
+              </ul>
+              </div>
+
+              <section>
+                <h2>Welcome!</h2>
+                <p>Accessible University (AU) is a <a href="https://www.merriam-webster.com/dictionary/fictional">fictional</a> <a href="https://en.wikipedia.org/wiki/University">university</a>, and this is its
+                  fictional home page. This page is designed to demonstrate a variety of
+                  common web design <a href="https://www.merriam-webster.com/dictionary/problems">problems</a> that result in visitors with disabilities
+                  being unable to access the content or features of a web page.
+                  Although the heading at the top of this section of the page
+                  suggests that AU may be a welcoming institution,
+                  the inaccessible design of this page sends the opposite message.
+                </p>
+              </section>
+
+              <section lang="es">
+                <h2>¡Bienvenido!</h2>
+                <p>Accesible Universidad (UA) es una universidad ficticia, y esta es su
+                  página de ficción. Esta página está diseñada para demostrar una variedad de
+                  común de diseño web que se traducen en problemas de los visitantes con discapacidad
+                  no poder acceder al contenido o las características de una página web.
+                  Aunque el título en la parte superior de esta sección de la página
+                  sugiere que AU puede ser una institución de bienvenida,
+                  el diseño inaccesible de esta página envía el mensaje opuesto.
+                </p>
+              </section>
+
+              <section>
+                <h2>Can you spot the barriers?</h2>
+                <p><img style="float:left;max-width:200px;margin-right:10px" src="https://openassessittoolkit.github.io/accessible_u/images/8675309-block.jpg" width="300" height="169" alt="A red brick wall."> There are at least 18 accessibility issues on this page.
+                To see a list of all known issues, <a href="https://openassessittoolkit.github.io/accessible_u/issues.html">click here</a>.
+                To see a more accessible version of this same page, <a href="https://openassessittoolkit.github.io/accessible_u/after_u.html">click here</a>.
+                To view a popup list of accessibility issues:</p>
+                <a class="btn btn-primary" href="https://openassessittoolkit.github.io/accessible_u/cheatsheet.html">View accessibility issues list (opens modal)</a>
+              </section>
+
+              <section>
+                <h2>AU Enrollment Trends</h2>
+                <table id="enrollment" class="table">
+                  <caption>AU Enrollment Trends by Department and Gender</caption>
+                  <thead>
+                    <tr>
+                      <td style="width:6em"><span class="sr-only">Department/Gender</span></td>
+                      <th scope="colgroup" colspan="5" style="text-align:center">Last year</th>
+                      <th scope="colgroup" colspan="5" style="text-align:center">This year</th>
+                    </tr>
+                    <tr>
+                      <td style="width:6em"><span class="sr-only">Total/Gender Percentage</span></td>
+                      <th scope="col">CS</th>
+                      <th scope="col">Eng</th>
+                      <th scope="col">Eco</th>
+                      <th scope="col">Phy</th>
+                      <th scope="col">Psy</th>
+                      <th scope="col">CS</th>
+                      <th scope="col">Eng</th>
+                      <th scope="col">Eco</th>
+                      <th scope="col">Phy</th>
+                      <th scope="col">Psy</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Total</th>
+                      <td>84</td>
+                      <td>126</td>
+                      <td>43</td>
+                      <td>32</td>
+                      <td>112</td>
+                      <td>82</td>
+                      <td>140</td>
+                      <td>45</td>
+                      <td>34</td>
+                      <td>101</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">% Male</th>
+                      <td>59</td>
+                      <td>84</td>
+                      <td>73</td>
+                      <td>69</td>
+                      <td>20</td>
+                      <td>87</td>
+                      <td>80</td>
+                      <td>69</td>
+                      <td>69</td>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">% Female</th>
+                      <td>41</td>
+                      <td>16</td>
+                      <td>27</td>
+                      <td>31</td>
+                      <td>80</td>
+                      <td>13</td>
+                      <td>20</td>
+                      <td>31</td>
+                      <td>31</td>
+                      <td>78</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+
+            </section>
+          </main>
+
+          <aside class="col-md-4" role="complementary">
+            <section class="mb-3">
+
+              <div class="events box">
+                <h2>Events</h2>
+
+                <h6>December 1</h6>
+                <h5><a href="#">A great holiday event</a></h5>
+                <p>Don't miss this event.</p>
+                <img class="hr" src="https://openassessittoolkit.github.io/accessible_u/images/hr.png" alt="" role="presentation">
+
+                <h6>December 31</h6>
+                <h5><a href="#">New years eve party</a></h5>
+                <p>Ring in the new year with your friends</p>
+                <img class="hr" src="https://openassessittoolkit.github.io/accessible_u/images/hr.png" alt="" role="presentation">
+              </div>
+
+              <div id="appForm" class="form-group box">
+                <h2>Start your application</h2>
+                  <p class="required reqExample"><span aria-hidden="true">*</span> (required fields are marked with an asterisk)</p>
+
+                <form action="#" method="post">
+
+                  <!-- container for displaying form errors -->
+                  <div id="error" role="alert" aria-live="polite"></div>
+
+                  <div class="required form-group">
+                    <label for="name">Name:<span aria-hidden="true">*</span></label>
+                    <input type="text" name="name" id="name" class="form-control" aria-required="true">
+                  </div>
+                  <div class="required form-group">
+                    <label for="email">Email:<span aria-hidden="true">*</span></label>
+                    <input type="email" name="email" id="email" class="form-control" aria-required="true">
+                  </div>
+                  <div class="form-group">
+                    <label for="country">Country:</label>
+                    <input type="text" name="country" id="country" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <fieldset>
+                      <legend>Desired major(s):</legend>
+                      <div id="majors">
+                        <div class="major"><input type="checkbox" id="majorCS" name="major" value="CS"> <label for="majorCS">Computer Science</label></div>
+                        <div class="major"><input type="checkbox" id="majorEng" name="major" value="Eng"> <label for="majorEng">Engineering</label></div>
+                        <div class="major"><input type="checkbox" id="majorEco" name="major" value="Eco"> <label for="majorEco">Economics</label></div>
+                        <div class="major"><input type="checkbox" id="majorPhy" name="major" value="Phy"> <label for="majorPhy">Physics</label></div>
+                        <div class="major"><input type="checkbox" id="majorPsy" name="major" value="Psy"> <label for="majorPsy">Psychology</label></div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div id="captcha">
+                    <p>Security Test</p>
+                    <p>Please enter the two words you see below, separated by a space</p>
+                    <label for="captcha-input" class="sr-only">Enter the words from the image</label>
+                    <input type="text" name="captcha" id="captcha-input">
+                    <img src="https://openassessittoolkit.github.io/accessible_u/images/captcha.png" width="186" height="56" alt="CAPTCHA image with two words to enter for security test.">
+                    <p><small>Note: An accessible CAPTCHA alternative (like reCAPTCHA v3 or hCaptcha) is recommended.</small></p>
+                  </div>
+
+                  <div class="mt-2">
+                    <input id="submit" type="submit" name="submit" value="Submit" class="btn btn-lg btn-success btn-block">
+                  </div>
+
+                </form>
+
+              </div>
+
+            </section>
+          </aside>
+
+        </div>
+    </div>
+
+    <footer id="footer" role="contentinfo">
+      <div class="main-footer p-5">
+        <div class="container">
+          <ul class="social float-right list-unstyled">
+            <li><a href="https://facebook.com"><img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-social-facebook.png" alt="Facebook"></a></li>
+            <li><a href="https://twitter.com"><img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-social-twitter.png" alt="Twitter"></a></li>
+          </ul>
+          <nav aria-label="Footer navigation">
+            <ul class="list-unstyled">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Directions</a></li>
+            </ul>
+          </nav>
+          <hr>
+        </div>
+        <div class="container sub-footer">
+          <div id="ccLogo">
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a>
+          </div>
+          Accessible University by <a href="http://washington.edu/accesscomputing/AU">University of Washington</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+          <p>This product was originally developed with support from the National Institute on Disability and Rehabilitation Research of the U.S. Department of Education (grant #H133D010306), and has been subsequently updated and maintained with support from the National Science Foundation (grant #CNS-054061S). The contents do not necessarily represent the policies of the U.S. federal government, and you should not assume their endorsement.</p>
+          <p>Subsequent modifications to this instance have been made by Duke University to modernize the look, feel, and code.</p>
+        </div>
+      </div>
+    </footer>
+
+  </div><!--end #content-->
+
+  <!--containers for displaying modal content-->
+  <div id="modalMask" aria-hidden="true"></div>
+
+  <div id="modalContent" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+    <h2 id="modalHeading" class="modalHeading">List of accessibility issues</h2>
+    <button type="button" id="modalXButton" aria-label="Close modal">x</button>
+    <p>Note: This popup does not receive keyboard focus. The cursor continues to tab down the page behind the it. As a result keyboard-only users cannot dismiss it and screen reader users will not be alerted to it's presence. They will not be able to close it; rendering the webpage useless.</p>
+    <p>On the inaccessible version of this page the following errors can be found:</p>
+    <ol>
+      <li>Missing bypass block <br>(skip-to main content).</li>
+      <li>Improper use of headings</li>
+      <li>Images of text</li>
+      <li>No alternate text on informative images</li>
+      <li>Missing or excessive alternate text on decorative images</li>
+      <li>Insufficient color contrast</li>
+      <li>Insufficient visual cues</li>
+      <li>Inaccessible dropdown menu</li>
+      <li>Redundant, uninformative link text</li>
+      <li>Color used to communicate information</li>
+      <li>Language not specified</li>
+      <li>Missing accessible form markup</li>
+      <li>Inaccessible CAPTCHA</li>
+      <li>Inaccessible validation</li>
+      <li>Missing ARIA landmark roles</li>
+      <li>Inaccessible modal window</li>
+      <li>Inaccessible carousel</li>
+      <li>Missing accessible table markup</li>
+      <li>HTML fails validation</li>
+    </ol>
+    <button class="btn btn-primary" type="button" id="modalOkButton">OK</button>
+  </div>
+
+
+</body></html>

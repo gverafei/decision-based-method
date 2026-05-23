@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accessible University Demo Site - Before Version</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="https://openassessittoolkit.github.io/accessible_u/images/favicon.ico" type="image/x-icon">
+    <style>
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        /* Basic styling for required indicator */
+        .form-label.required::after {
+            content: " *";
+            color: red; /* Using red for visibility, ensure contrast */
+            font-weight: bold;
+        }
+        /* Style for form error messages */
+        #error {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        /* Custom styles not covered by Bootstrap 5 */
+        .logo-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .utility-menu {
+            margin-left: 1rem;
+        }
+        .utility-menu li {
+            display: inline-block;
+            margin-left: 1rem;
+        }
+        .box {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .events h3 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .events p {
+            margin-bottom: 1rem;
+        }
+        .main-footer {
+            background-color: #f8f9fa;
+        }
+        .sub-footer {
+            font-size: 0.9rem;
+        }
+        #ccLogo {
+            margin-bottom: 1rem;
+        }
+        .social li {
+            display: inline-block;
+            margin-left: 1rem;
+        }
+        /* Ensure sufficient contrast for links in footer */
+        .main-footer a {
+            color: #0056b3; /* Example blue, check contrast */
+        }
+        .main-footer a:hover {
+            color: #003f7f; /* Darker blue on hover */
+        }
+        /* Ensure sufficient contrast for text in footer */
+        .main-footer, .main-footer p, .main-footer li {
+             color: #212529; /* Bootstrap default text color */
+        }
+
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <header class="container clearfix">
+        <nav aria-label="version" class="float-end">
+            <span class="float-start">Examples:</span>
+            <ul class="utility-menu float-start list-unstyled">
+                <li><a href="https://openassessittoolkit.github.io/accessible_u/before_u.html" aria-current="page" aria-label="before version with problems">Before</a></li>
+                <li><a href="https://openassessittoolkit.github.io/accessible_u/after_u.html" aria-label="after version with fixes">After</a></li>
+            </ul>
+        </nav>
+        <a class="logo-link" href="https://openassessittoolkit.github.io/accessible_u/">
+            <img id="logo" src="https://openassessittoolkit.github.io/accessible_u/images/8675309-l-o-g-o-before.png" width="950" height="230" alt="Accessible University Logo">
+        </a>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-primary mb-3">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  About
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                <li><a class="dropdown-item" href="#">News</a></li>
+                <li><a class="dropdown-item" href="#">Governance</a></li>
+                <li><a class="dropdown-item" href="#">Diversity</a></li>
+                <li><a class="dropdown-item" href="#">Contact Us</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Academics
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="academicsDropdown">
+                <li><a class="dropdown-item" href="#">Degree Programs</a></li>
+                <li><a class="dropdown-item" href="#">AU Faculty</a></li>
+                <li><a class="dropdown-item" href="#">Distance Learning</a></li>
+                <li><a class="dropdown-item" href="#">Libraries</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="admissionsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Admissions
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="admissionsDropdown">
+                <li><a class="dropdown-item" href="#">Undergraduate</a></li>
+                <li><a class="dropdown-item" href="#">Graduate</a></li>
+                <li><a class="dropdown-item" href="#">Tuition</a></li>
+                <li><a class="dropdown-item" href="#">Financial Aid</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                  Visitors
+              </a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <label for="search-input" class="sr-only">Search</label>
+            <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit">Go</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main-content" class="container">
+      <div class="row">
+          <div class="col-md-8">
+            <section class="mb-3">
+
+              <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <a href="https://openassessittoolkit.github.io/accessible_u/somepage.html?ref=Slide%201">
+                      <img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-before_brass_band.jpg" class="d-block w-100" alt="Brass band performing outdoors">
+                    </a>
+                  </div>
+                  <div class="carousel-item">
+                    <a href="https://openassessittoolkit.github.io/accessible_u/somepage.html?ref=Slide%202">
+                      <img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-before_articulated_bus.jpg" class="d-block w-100" alt="Articulated bus on a city street">
+                    </a>
+                  </div>
+                  <div class="carousel-item">
+                    <a href="https://openassessittoolkit.github.io/accessible_u/somepage.html?ref=Slide%203">
+                      <img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-before_construction.jpg" class="d-block w-100" alt="Construction site with scaffolding">
+                    </a>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+
+              <section class="section mt-3">
+                <h1>Welcome!</h1>
+                <p>Accessible University (AU) is a <a href="https://www.merriam-webster.com/dictionary/fictional">fictional</a> <a href="https://en.wikipedia.org/wiki/University">university</a>, and this is its
+                  fictional home page. This page is designed to demonstrate a variety of
+                  common web design <a href="https://www.merriam-webster.com/dictionary/problems">problems</a> that result in visitors with disabilities
+                  being unable to access the content or features of a web page.
+                  Although the heading at the top of this section of the page
+                  suggests that AU may be a welcoming institution,
+                  the inaccessible design of this page sends the opposite message.
+                </p>
+              </section>
+
+              <section lang="es">
+                <h2>Bienvenido!</h2>
+                <p>Accesible Universidad (UA) es una universidad ficticia, y esta es su
+                  página de ficción. Esta página está diseñada para demostrar una variedad de
+                  común de diseño web que se traducen en problemas de los visitantes con discapacidad
+                  no poder acceder al contenido o las características de una página web.
+                  Aunque el título en la parte superior de esta sección de la página
+                  sugiere que AU puede ser una institución de bienvenida,
+                  el diseño inaccesible de esta página envía el mensaje opuesto.
+                </p>
+              </section>
+
+              <section>
+                <h2>Can you spot the barriers?</h2>
+                <p><img style="float:left;max-width:200px;margin-right:10px" src="https://openassessittoolkit.github.io/accessible_u/images/8675309-block.jpg" width="300" height="169" alt="Illustration of a red brick wall blocking a path"> There are at least 18 accessibility issues on this page.
+                  To see a list of all known issues, <a href="https://openassessittoolkit.github.io/accessible_u/issues.html">view the list of issues</a>.
+                  To see a more accessible version of this same page, <a href="https://openassessittoolkit.github.io/accessible_u/after_u.html">view the accessible version</a>.
+                  To view a popup list of accessibility issues:
+                </p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#issuesModal">View accessibility issues list</button>
+              </section>
+
+              <section>
+                <h2>AU Enrollment Trends</h2>
+                <table id="enrollment" class="table table-bordered">
+                  <caption>AU Enrollment Trends by Department and Year</caption>
+                  <thead>
+                    <tr>
+                      <td rowspan="2">&nbsp;</td>
+                      <th scope="colgroup" colspan="5" class="text-center">Last year</th>
+                      <th scope="colgroup" colspan="5" class="text-center">This year</th>
+                    </tr>
+                    <tr>
+                      <th scope="col">CS</th>
+                      <th scope="col">Eng</th>
+                      <th scope="col">Eco</th>
+                      <th scope="col">Phy</th>
+                      <th scope="col">Psy</th>
+                      <th scope="col">CS</th>
+                      <th scope="col">Eng</th>
+                      <th scope="col">Eco</th>
+                      <th scope="col">Phy</th>
+                      <th scope="col">Psy</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Total</th>
+                      <td>84</td>
+                      <td>126</td>
+                      <td>43</td>
+                      <td>32</td>
+                      <td>112</td>
+                      <td>82</td>
+                      <td>140</td>
+                      <td>45</td>
+                      <td>34</td>
+                      <td>101</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">% Male</th>
+                      <td>59</td>
+                      <td>84</td>
+                      <td>73</td>
+                      <td>69</td>
+                      <td>20</td>
+                      <td>87</td>
+                      <td>80</td>
+                      <td>69</td>
+                      <td>69</td>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">% Female</th>
+                      <td>41</td>
+                      <td>16</td>
+                      <td>27</td>
+                      <td>31</td>
+                      <td>80</td>
+                      <td>13</td>
+                      <td>20</td>
+                      <td>31</td>
+                      <td>31</td>
+                      <td>78</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+
+            </section>
+          </div>
+
+          <div class="col-md-4">
+            <aside>
+              <section class="mb-3 box events">
+                <h2>Events</h2>
+
+                <article>
+                  <h3><a href="#">A great holiday event</a></h3>
+                  <h6>December 1</h6>
+                  <p>Don't miss this event.</p>
+                </article>
+                <hr>
+                <article>
+                  <h3><a href="#">New years eve party</a></h3>
+                  <h6>December 31</h6>
+                  <p>Ring in the new year with your friends</p>
+                </article>
+                <hr>
+              </section>
+
+              <section id="appForm" class="form-group box">
+                <h2>Start your application</h2>
+                <p><span class="required"></span> indicates a required field.</p>
+
+                <form action="#" method="post">
+
+                  <!-- container for displaying form errors -->
+                  <div id="error" aria-live="polite"></div>
+
+                  <div class="mb-3">
+                    <label for="name" class="form-label required">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label required">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="country" class="form-label">Country:</label>
+                    <input type="text" id="country" name="country" class="form-control">
+                  </div>
+                  <fieldset class="mb-3">
+                    <legend>Desired major(s):</legend>
+                    <div id="majors">
+                      <div class="form-check major">
+                        <input type="checkbox" class="form-check-input" id="majorCS" name="major" value="CS">
+                        <label class="form-check-label" for="majorCS">Computer Science</label>
+                      </div>
+                      <div class="form-check major">
+                        <input type="checkbox" class="form-check-input" id="majorEng" name="major" value="Eng">
+                        <label class="form-check-label" for="majorEng">Engineering</label>
+                      </div>
+                      <div class="form-check major">
+                        <input type="checkbox" class="form-check-input" id="majorEco" name="major" value="Eco">
+                        <label class="form-check-label" for="majorEco">Economics</label>
+                      </div>
+                      <div class="form-check major">
+                        <input type="checkbox" class="form-check-input" id="majorPhy" name="major" value="Phy">
+                        <label class="form-check-label" for="majorPhy">Physics</label>
+                      </div>
+                      <div class="form-check major">
+                        <input type="checkbox" class="form-check-input" id="majorPsy" name="major" value="Psy">
+                        <label class="form-check-label" for="majorPsy">Psychology</label>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div id="captcha" class="mb-3">
+                    <p>Security Test</p>
+                    <p>Please enter the two words you see below, separated by a space.</p>
+                    <p><strong>Note: This visual CAPTCHA is inaccessible. An accessible alternative (e.g., audio CAPTCHA, different challenge type) is required for WCAG compliance.</strong></p>
+                    <label for="captcha-input" class="sr-only">Enter the words from the image</label>
+                    <input type="text" id="captcha-input" name="captcha" class="form-control mb-2">
+                    <img src="https://openassessittoolkit.github.io/accessible_u/images/captcha.png" width="186" height="56" alt="CAPTCHA image with two words to enter">
+                  </div>
+
+                  <div class="mt-2">
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Submit</button>
+                  </div>
+
+                </form>
+
+              </section>
+            </aside>
+          </div>
+
+        </div>
+    </main>
+
+    <footer class="main-footer p-5">
+      <div class="container">
+        <ul class="social float-end list-unstyled">
+          <li><a href="https://facebook.com"><img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-social-facebook.png" alt="Facebook"></a></li>
+          <li><a href="https://twitter.com"><img src="https://openassessittoolkit.github.io/accessible_u/images/8675309-social-twitter.png" alt="Twitter"></a></li>
+        </ul>
+        <nav aria-label="Footer navigation">
+          <ul class="list-unstyled">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Directions</a></li>
+          </ul>
+        </nav>
+        <hr>
+      </div>
+      <div class="container sub-footer">
+        <div id="ccLogo">
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a>
+        </div>
+        <p>Accessible University by <a href="http://washington.edu/accesscomputing/AU">University of Washington</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+        <p>This product was originally developed with support from the National Institute on Disability and Rehabilitation Research of the U.S. Department of Education (grant #H133D010306), and has been subsequently updated and maintained with support from the National Science Foundation (grant #CNS-054061S). The contents do not necessarily represent the policies of the U.S. federal government, and you should not assume their endorsement.</p>
+        <p>Subsequent modifications to this instance have been made by Duke University to modernize the look, feel, and code.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="issuesModal" tabindex="-1" aria-labelledby="issuesModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="issuesModalLabel">List of accessibility issues</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Note: The original popup did not receive keyboard focus. The cursor continued to tab down the page behind the it. As a result keyboard-only users could not dismiss it and screen reader users would not be alerted to it's presence. They would not be able to close it; rendering the webpage useless.</p>
+            <p>On the inaccessible version of this page the following errors can be found:</p>
+            <ol>
+              <li>Missing bypass block (skip-to main content).</li>
+              <li>Improper use of headings</li>
+              <li>Images of text</li>
+              <li>No alternate text on informative images</li>
+              <li>Missing or excessive alternate text on decorative images</li>
+              <li>Insufficient color contrast</li>
+              <li>Insufficient visual cues</li>
+              <li>Inaccessible dropdown menu</li>
+              <li>Redundant, uninformative link text</li>
+              <li>Color used to communicate information</li>
+              <li>Language not specified</li>
+              <li>Missing accessible form markup</li>
+              <li>Inaccessible CAPTCHA</li>
+              <li>Inaccessible validation</li>
+              <li>Missing ARIA landmark roles</li>
+              <li>Inaccessible modal window</li>
+              <li>Inaccessible carousel</li>
+              <li>Missing accessible table markup</li>
+              <li>HTML fails validation</li>
+            </ol>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

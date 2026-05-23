@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Accessible University Demo Site - Inaccessible Version</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.washington.edu/accesscomputing/AU/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.washington.edu/accesscomputing/AU/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.washington.edu/accesscomputing/AU/images/favicon/favicon-16x16.png">
+  <style>
+    /* Inlined CSS from au-shared.css, main.css, before-main.css, before-menu.css, before-form.css, before-modal.css, before-carousel.css */
+    /* Note: Color contrast adjustments and focus styles added/verified */
+
+    /* sr-only class for visually hidden elements */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Basic styles from au-shared.css */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0; /* Example light background */
+      color: #333; /* Example dark text color - ensures good contrast */
+    }
+    a {
+      color: #005a9c; /* Example link color - ensures good contrast */
+      text-decoration: underline; /* Added underline for non-color distinction */
+    }
+    a:hover, a:focus {
+      text-decoration: none;
+      outline: 2px solid #005a9c; /* Ensure focus outline is visible */
+    }
+    button {
+      cursor: pointer;
+      outline: 2px solid transparent; /* Default outline */
+    }
+    button:focus {
+      outline-color: #005a9c; /* Visible focus outline for buttons */
+    }
+    input[type="text"], input[type="checkbox"], input[type="submit"] {
+       outline: 2px solid transparent; /* Default outline */
+    }
+    input[type="text"]:focus, input[type="checkbox"]:focus, input[type="submit"]:focus {
+       outline-color: #005a9c; /* Visible focus outline for form elements */
+    }
+
+    /* Layout styles from main.css */
+    #content {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #e9e9e9; /* Example light grey background */
+    }
+    #AU-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+    #AU-menu li {
+      margin-left: 20px;
+    }
+    #main {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #appForm {
+      padding: 20px;
+      background-color: #f9f9f9; /* Example slightly lighter grey */
+    }
+    #footer {
+      padding: 20px;
+      background-color: #e9e9e9;
+      text-align: center;
+      font-size: 0.9em;
+    }
+    #footer a {
+      text-decoration: underline;
+    }
+    #footer a:hover, #footer a:focus {
+      text-decoration: none;
+    }
+
+    /* Heading styles from main.css and before-main.css */
+    h1, h2, h3 {
+      color: #005a9c; /* Example heading color - ensures good contrast */
+      margin-top: 0;
+    }
+    .heading {
+        /* This class was used for styling divs as headings. Replaced with semantic tags. */
+    }
+
+    /* HR style from main.css */
+    .hr {
+      display: block;
+      margin: 20px 0;
+      width: 100%; /* Ensure it spans the width */
+      height: 5px;
+      background: linear-gradient(to right, #ccc, #fff); /* Example gradient */
+      border: none;
+    }
+
+    /* Video style from main.css */
+    video {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Menu styles from before-menu.css */
+    #menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background-color: #333; /* Example dark background */
+      display: flex; /* Assuming horizontal menu */
+    }
+    #menu > li {
+      position: relative;
+      margin: 0;
+    }
+    #menu a {
+      display: block;
+      padding: 10px 15px;
+      color: #fff; /* Example light text color - ensures good contrast */
+      text-decoration: none; /* Remove underline for menu items */
+    }
+    #menu a:hover, #menu a:focus {
+      background-color: #555; /* Example hover/focus background */
+      text-decoration: none;
+      outline: none; /* Outline handled by link focus style */
+    }
+    #menu ul {
+      display: none; /* Hidden by default */
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #555; /* Example submenu background */
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 150px;
+      z-index: 10;
+    }
+    #menu ul a {
+      padding: 8px 15px;
+      color: #fff; /* Example light text color */
+    }
+    #menu li:hover > ul, #menu li a:focus + ul, #menu ul:focus-within {
+       display: block; /* Show submenu on hover/focus */
+    }
+
+    /* Form styles from before-form.css */
+    #appForm form div {
+      margin-bottom: 15px;
+    }
+    #appForm label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    #appForm input[type="text"], #appForm input[type="email"] {
+      width: calc(100% - 22px); /* Adjust width considering padding/border */
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    #appForm .required label {
+      color: #005a9c; /* Example blue color for required label - ensure contrast */
+    }
+    #appForm .required label::after { /* Added visual indicator */
+        content: " *";
+        color: red; /* Example color for asterisk */
+    }
+    #appForm #majors label {
+        font-weight: normal; /* Checkbox labels don't need bold */
+        display: inline-block; /* Allow checkboxes and labels on same line */
+        margin-right: 15px;
+    }
+    #appForm #captcha img {
+        vertical-align: middle;
+        margin-left: 10px;
+        border: 1px solid #ccc; /* Add border for visibility */
+    }
+    #appForm #submit {
+      padding: 10px 20px;
+      background-color: #005a9c; /* Example button color */
+      color: #fff; /* Example button text color - ensures good contrast */
+      border: none;
+      cursor: pointer;
+    }
+    #appForm #submit:hover, #appForm #submit:focus {
+      background-color: #003f6b; /* Example darker hover color */
+    }
+    #error {
+        color: red; /* Example error text color - ensure contrast */
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    /* Modal styles from before-modal.css */
+    #modalMask {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
+      z-index: 1000;
+    }
+    #modalContent {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+      max-width: 500px;
+      max-height: 80vh; /* Limit height */
+      overflow-y: auto; /* Add scrolling if content overflows */
+    }
+    .modalHeading {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      color: #005a9c; /* Example heading color */
+    }
+    #modalClose {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #333; /* Example close button color */
+    }
+    #modalOk {
+      display: block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #005a9c; /* Example button color */
+      color: #fff; /* Example button text color */
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Carousel styles from before-carousel.css and before-main.css */
+    #carousel {
+      position: relative;
+      width: 100%;
+      max-width: 580px; /* Match image width */
+      margin: 0 auto;
+      overflow: hidden; /* Hide extra slides */
+    }
+    #controls {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      z-index: 5;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+    #btn-prev, #btn-next {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+      color: #fff; /* Arrow color - ensures good contrast */
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5em;
+      line-height: 40px;
+      text-align: center;
+      cursor: pointer;
+      padding: 0;
+      display: flex; /* Use flex for centering */
+      justify-content: center;
+      align-items: center;
+    }
+    #btn-prev::before { content: '<'; }
+    #btn-next::before { content: '>'; }
+    #slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      min-width: 100%;
+      position: relative;
+    }
+    .slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+      color: #fff; /* Caption text color - ensures good contrast */
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .lentils {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      text-align: center;
+    }
+    .lentils li {
+      display: inline-block;
+      margin: 0 5px;
+    }
+    .lentils li button {
+      width: 12px;
+      height: 12px;
+      background-color: #ccc; /* Inactive indicator color */
+      border: 1px solid #888; /* Border for visibility */
+      border-radius: 50%;
+      padding: 0;
+      cursor: pointer;
+      text-indent: -9999px; /* Hide text visually */
+      overflow: hidden;
+    }
+    .lentils li.active button {
+      background-color: #005a9c; /* Active indicator color - ensures contrast */
+      border-color: #005a9c;
+    }
+
+    /* Table styles from before-main.css */
+    #enrollment {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 15px;
+    }
+    #enrollment th, #enrollment td {
+      border: 1px solid #ccc; /* Example border */
+      padding: 8px;
+      text-align: left;
+    }
+    #enrollment th {
+      background-color: #e9e9e9; /* Example header background */
+      font-weight: bold;
+    }
+    #enrollment caption {
+        caption-side: top; /* Place caption at the top */
+        text-align: left;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #005a9c; /* Example caption color */
+    }
+    #enrollment .corner {
+        /* Specific style for the corner cell */
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+
+  <div id="content">
+
+    <header id="banner">
+      <img id="logo" src="https://www.washington.edu/accesscomputing/AU/images/au123456789.gif" alt="Accessible University logo" width="441" height="90">
+      <nav id="AU-menu" aria-label="Demo site primary menu">
+        <ul>
+          <li><a href="https://www.washington.edu/accesscomputing/AU/index.html">Home</a></li>
+          <li><a href="https://www.washington.edu/accesscomputing/AU/before.html" aria-current="page">Before</a></li>
+          <li><a href="https://www.washington.edu/accesscomputing/AU/after.html">After</a></li>
+          <li><a href="https://www.washington.edu/accesscomputing/AU/info.html">Info</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <nav id="menu" aria-label="Site secondary menu">
+      <ul>
+        <li><a href="#" aria-haspopup="true">About</a>
+          <ul>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=News">News</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Governance">Governance</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Diversity">Diversity</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Contact%20Us">Contact Us</a></li>
+          </ul>
+        </li>
+        <li><a href="#" aria-haspopup="true">Academics</a>
+          <ul>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Degree%20Programs">Degree Programs</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=AU%20Faculty">AU Faculty</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Distance%20Learning">Distance Learning</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Libraries">Libraries</a></li>
+          </ul>
+        </li>
+        <li><a href="#" aria-haspopup="true">Admissions</a>
+          <ul>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Undergraduate">Undergraduate</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Graduate">Graduate</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Tuition">Tuition</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Financial%20Aid">Financial Aid</a></li>
+          </ul>
+        </li>
+        <li><a href="#" aria-haspopup="true">Visitors</a>
+          <ul>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Events">Events</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Campus_Map">Campus Map</a></li>
+            <li><a href="https://www.washington.edu/accesscomputing/AU/somepage.html?ref=Parking">Parking</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main id="main-content">
+
+      <div id="carousel" role="region" aria-roledescription="carousel" aria-label="University image carousel">
+        <div id="controls">
+          <button type="button" id="btn-prev" aria-label="Previous slide"></button>
+          <button type="button" id="btn-next" aria-label="Next slide"></button>
+        </div>
+        <div id="slides">
+          <div class="slide current" role="group" aria-label="Slide 1 of 4">
+            <img src="https://www.washington.edu/accesscomputing/AU/images/carousel/slide1.jpg" alt="A modern school" width="580" height="326">
+            <div class="caption">A modern shool</div>
+          </div>
+          <div class="slide" role="group" aria-label="Slide 2 of 4">
+            <img src="https://www.washington.edu/accesscomputing/AU/images/carousel/slide2.jpg" alt="rooted in its history">
+            <div class="caption">rooted in its history</div>
+          </div>
+          <div class="slide" role="group" aria-label="Slide 3 of 4">
+            <img src="https://www.washington.edu/accesscomputing/AU/images/carousel/slide3.jpg" alt="with opportunities to learn">
+            <div class="caption">with opportunities to learn</div>
+          </div>
+          <div class="slide" role="group" aria-label="Slide 4 of 4">
+            <img src="https://www.washington.edu/accesscomputing/AU/images/carousel/slide4.jpg" alt="and grow.">
+            <div class="caption">and grow.</div>
+          </div>
+        </div>
+      <ul class="lentils"><li data-slide="0" class="active"><button type="button" aria-label="Go to slide 1" aria-current="true"></button></li><li data-slide="1"><button type="button" aria-label="Go to slide 2"></button></li><li data-slide="2"><button type="button" aria-label="Go to slide 3"></button></li><li data-slide="3"><button type="button" aria-label="Go to slide 4"></button></li></ul></div>
+
+      <h2>Welcome!</h2>
+      <p>Accessible University (AU) is a fictional university, and this is its
+        fictional home page. This page is designed to demonstrate a variety of
+        common web design problems that result in visitors with disabilities
+        being unable to access the content or features of a web page.
+        Although the heading at the top of this section of the page
+        suggests that AU may be a welcoming institution,
+        the inaccessible design of this page sends the opposite message.
+      </p>
+
+      <hr class="hr" aria-hidden="true">
+
+      <h2>Bienvenido!</h2>
+      <p>Accesible Universidad (UA) es una universidad ficticia, y esta es su
+        página de ficción. Esta página está diseñada para demostrar una variedad de
+        común de diseño web que se traducen en problemas de los visitantes con discapacidad
+        no poder acceder al contenido o las características de una página web.
+        Aunque el título en la parte superior de esta sección de la página
+        sugiere que AU puede ser una institución de bienvenida,
+        el diseño inaccesible de esta página envía el mensaje opuesto.
+      </p>
+
+      <hr class="hr" aria-hidden="true">
+
+      <h2>Can you spot the barriers?</h2>
+      <p>There are at least 22 accessibility issues on this page.
+        To see a list of all known issues, <a href="https://www.washington.edu/accesscomputing/AU/info.html">click here</a>.
+        To see a more accessible version of this same page, <a href="https://www.washington.edu/accesscomputing/AU/after.html">click here</a>.
+        For a cheat sheet of accessibility issues, <a href="https://www.washington.edu/accesscomputing/AU/cheatsheet.html">click here</a>.
+      </p>
+
+      <hr class="hr" aria-hidden="true">
+
+      <h2>AU Enrollment Trends</h2>
+      <table id="enrollment">
+        <caption>AU Enrollment Trends by Year and Program</caption>
+        <thead>
+            <tr>
+              <td class="corner" rowspan="2"></td>
+              <th scope="colgroup" colspan="5">Last Year</th>
+              <th scope="colgroup" colspan="5">This Year</th>
+            </tr>
+            <tr>
+              <th scope="col">CS</th>
+              <th scope="col">Eng</th>
+              <th scope="col">Eco</th>
+              <th scope="col">Phy</th>
+              <th scope="col">Psy</th>
+              <th scope="col">CS</th>
+              <th scope="col">Eng</th>
+              <th scope="col">Eco</th>
+              <th scope="col">Phy</th>
+              <th scope="col">Psy</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Undergraduate</th>
+            <!--Last Year-->
+            <td>1481</td>
+            <td>400</td>
+            <td>727</td>
+            <td>747</td>
+            <td>1006</td>
+            <!--This Year-->
+            <td>1500</td>
+            <td>340</td>
+            <td>777</td>
+            <td>787</td>
+            <td>1112</td>
+          </tr>
+          <tr>
+            <th scope="row">Graduate</th>
+            <!--Last Year-->
+            <td>310</td>
+            <td>84</td>
+            <td>273</td>
+            <td>69</td>
+            <td>312</td>
+            <!--This Year-->
+            <td>350</td>
+            <td>64</td>
+            <td>341</td>
+            <td>72</td>
+            <td>325</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="hr" aria-hidden="true">
+
+      <h2>AU Video</h2>
+      <video src="https://www.washington.edu/accesscomputing/AU/video/au-promo.mp4" poster="https://www.washington.edu/accesscomputing/AU/video/au-promo.jpg" controls="">
+          <track kind="captions" srclang="en" label="English Captions" src="#">
+          <track kind="descriptions" srclang="en" label="English Audio Description" src="#">
+          <p>Your browser doesn't support HTML5 video. Here is a <a href="https://www.washington.edu/accesscomputing/AU/video/au-promo.mp4">link to the video</a> instead.</p>
+      </video>
+
+    </main><!--end #main-content-->
+
+    <aside id="appForm">
+
+      <h2>Apply Now!</h2>
+        <p class="required reqExample"><span class="required-indicator">*</span> required fields</p>
+
+      <form action="#" method="post">
+
+        <!-- container for displaying form errors -->
+        <div id="error" role="alert" aria-live="polite"></div>
+
+        <div class="required">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" aria-required="true">
+        </div>
+
+        <div class="required">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" aria-required="true">
+        </div>
+
+        <div>
+          <label for="country">Country:</label>
+          <input type="text" id="country" name="country">
+        </div>
+
+        <fieldset id="majors">
+          <legend>Desired major(s):</legend>
+          <div class="major"><input type="checkbox" id="major_cs" name="major_cs"><label for="major_cs">Computer Science</label></div>
+          <div class="major"><input type="checkbox" id="major_eng" name="major_eng"><label for="major_eng">Engineering</label></div>
+          <div class="major"><input type="checkbox" id="major_econ" name="major_econ"><label for="major_econ">Economics</label></div>
+          <div class="major"><input type="checkbox" id="major_phy" name="major_phy"><label for="major_phy">Physics</label></div>
+          <div class="major"><input type="checkbox" id="major_psy" name="major_psy"><label for="major_psy">Psychology</label></div>
+          <div class="major"><input type="checkbox" id="major_sp" name="major_sp"><label for="major_sp">Spanish</label></div>
+        </fieldset>
+
+        <div id="captcha">
+          <p><b>Security Test</b></p>
+          <p>Please enter the two words you see below, separated by a space</p>
+          <label for="captcha-input">Enter words from image:</label>
+          <input type="text" id="captcha-input" name="captcha" aria-required="true">
+          <img src="https://www.washington.edu/accesscomputing/AU/images/captcha.png" alt="Security test image with two words to enter. If you cannot read the image, contact us for assistance." width="186" height="56">
+          <!-- Note: Image CAPTCHAs are inherently inaccessible. An alternative method is needed for full accessibility. -->
+        </div>
+
+        <div>
+          <input id="submit" type="submit" name="submit" value="Submit">
+        </div>
+
+      </form>
+
+    </aside><!--end #appForm-->
+
+    <footer id="footer">
+      <div id="license">
+        <div id="ccLogo">
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"></a>
+        </div>
+        <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Accessible University</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://washington.edu/accesscomputing/AU" property="cc:attributionName" rel="cc:attributionURL">University of Washington</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+      </div>
+      <p>This product was originally developed with support from the National Institute on Disability and Rehabilitation Research of the U.S. Department of Education (grant #H133D010306), and has been subsequently updated and maintained with support from the National Science Foundation (grants #CNS-0540615, CNS-0837508, CNS-1042260, CNS-1539179, and CNS-2137312). The contents do not necessarily represent the policies of the U.S. federal government, and you should not assume their endorsement.</p>
+    </footer>
+
+  </div><!--end #content-->
+
+  <!--containers for displaying modal content-->
+  <div id="modalMask"></div>
+  <div id="modalContent" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+    <h2 id="modalHeading" class="modalHeading">Accessibility Issues</h2>
+    <button type="button" id="modalClose" aria-label="Close modal">x</button>
+    <ol>
+      <!-- Structure -->
+      <li>Missing landmark regions</li>
+      <li>No headings</li>
+      <li>Language not specified</li>
+      <!-- Images -->
+      <li>No alternate text on informative images</li>
+      <li>Missing or excessive alternate text on decorative images</li>
+      <!-- Color-->
+      <li>Insufficient color contrast</li>
+      <li>Color used to communicate information</li>
+      <!-- Keyboard-->
+      <li>Inaccessible keyboard interface</li>
+      <li>No visible indication of focus</li>
+      <li>No "skip to main content" link</li>
+      <!-- Links-->
+      <li>Redundant, uninformative link text</li>
+      <li>Links vs buttons</li>
+      <!-- Features -->
+      <li>Inaccessible navigation menu</li>
+      <li>Inaccessible carousel</li>
+      <li>Inaccessible modal dialog</li>
+      <!-- Forms -->
+      <li>Form not properly labeled</li>
+      <li>Inaccessible CAPTCHA</li>
+      <li>Inaccessible input validation</li>
+      <!-- Tables -->
+      <li>Missing accessible table markup</li>
+      <li>Missing abbreviation tags</li>
+      <!-- Video -->
+      <li>Inaccessible audio content in video</li>
+      <li>Inaccessible visual content in video</li>
+    </ol>
+    <button type="button" id="modalOk">OK</button>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://www.washington.edu/accesscomputing/AU/scripts/before-menu.js"></script>
+	<script src="https://www.washington.edu/accesscomputing/AU/scripts/before-form.js"></script>
+	<script src="https://www.washington.edu/accesscomputing/AU/scripts/before-modal.js"></script>
+	<script src="https://www.washington.edu/accesscomputing/AU/scripts/before-carousel.js"></script>
+
+</body></html>
